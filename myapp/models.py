@@ -9,6 +9,9 @@ class Person(models.Model):
     city = models.CharField(max_length=100, verbose_name='Gorod')
     is_activated = models.BooleanField(verbose_name='Activatsiya')
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = 'Chelovek'
         verbose_name_plural = 'Ludi'
