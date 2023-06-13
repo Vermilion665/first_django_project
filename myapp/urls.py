@@ -1,12 +1,15 @@
 from django.urls import path
-from .views import about, login, contacts, index_myapp, drivers, cars
+from .views import *
 
 urlpatterns = [
-    path('', index_myapp, name='index'),
+    path('', index_myapp, name='index'),  # Путь "корень"
     path('about/', about, name='about'),
     path('login/', login, name='login'),
     path('cars/', cars, name='cars'),
     path('drivers/', drivers, name='drivers'),
-    path('contacts/<int:id>/', contacts, name='contacts'),
-    #path('add_form/', add_form, name='add_form')
+    path('contacts/<str:id>/', contacts, name='contacts'),  # перед слешем долно быть цыфровое значение
+    path('clients/', clients, name='clients'),
+    path('add_car/', add_car, name='add_car'),
+    path('add_driver/', add_driver, name='add_driver'),
+    path('add_client/', add_client, name='add_client'),
 ]

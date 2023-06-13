@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 
-class Person(models.Model):
+class Driver(models.Model):
     name = models.CharField(max_length=100, verbose_name='Imya')
     age = models.IntegerField(verbose_name='Vozrast')
     city = models.CharField(max_length=100, verbose_name='Gorod')
@@ -31,3 +31,21 @@ class Car(models.Model):
     class Meta:
         verbose_name = 'Mashina'
         verbose_name_plural = 'Tachki'
+
+
+class Client(models.Model):
+    name = models.CharField(max_length=30, verbose_name='Имя')
+    last_name = models.CharField(max_length=30, verbose_name='Фамилия')
+    birthday = models.DateField(verbose_name='Дата рождения')
+    age = models.IntegerField(verbose_name='Возраст')
+    city = models.CharField(max_length=30, verbose_name='Город')
+    phone = models.CharField(max_length=20, verbose_name='Телефон')
+    email = models.EmailField(verbose_name='Эл. почта')
+    created_at = models.DateTimeField(auto_created=True)
+
+    def __str__(self):
+        return ' '.join([self.name, self.last_name])
+
+    class Meta:
+        verbose_name = 'Клиент'
+        verbose_name_plural = 'Клиенты'

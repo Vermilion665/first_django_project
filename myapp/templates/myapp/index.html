@@ -1,7 +1,7 @@
 {% extends 'myapp/base.html' %}
 
 {% block content %}
-
-Soderzhimoe glavnoy stranici
-<p>Zdesya tekst glavnoy stranici</p>
+<h1>{{title}}</h1>
+Содержимое главной страницы
+<p><a href="{% url 'login' %}">Войти</a></p>
 {% endblock %}
