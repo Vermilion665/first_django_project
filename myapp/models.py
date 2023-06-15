@@ -18,11 +18,11 @@ class Driver(models.Model):
 
 
 class Car(models.Model):
-    brand = models.CharField(max_length=30, verbose_name='Brand')
-    model = models.CharField(max_length=30, verbose_name='Model')
-    color = models.CharField(max_length=30, verbose_name='Cvet')
-    power = models.IntegerField(verbose_name="Moshnost'")
-    year = models.IntegerField(verbose_name='God vipuska')
+    brand = models.CharField(max_length=30, verbose_name='Марка')
+    model = models.CharField(max_length=30, verbose_name='Модель')
+    color = models.CharField(max_length=30, verbose_name='Цвет')
+    power = models.IntegerField(verbose_name="Мощность'")
+    year = models.IntegerField(verbose_name='Год выпуска')
 
     def __str__(self):
         #return f'{self.brand} {self.model}'
@@ -37,11 +37,11 @@ class Client(models.Model):
     name = models.CharField(max_length=30, verbose_name='Имя')
     last_name = models.CharField(max_length=30, verbose_name='Фамилия')
     birthday = models.DateField(verbose_name='Дата рождения')
-    age = models.IntegerField(verbose_name='Возраст')
+    age = models.IntegerField(verbose_name='Возраст', null=True)
     city = models.CharField(max_length=30, verbose_name='Город')
     phone = models.CharField(max_length=20, verbose_name='Телефон')
     email = models.EmailField(verbose_name='Эл. почта')
-    created_at = models.DateTimeField(auto_created=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return ' '.join([self.name, self.last_name])

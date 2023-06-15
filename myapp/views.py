@@ -66,7 +66,8 @@ def contacts(request, id):
 
 def clients(request):
     title = 'Клиенты'
-    context = {'title': title, 'menu': menu}
+    clients = Client.objects.all()
+    context = {'title': title, 'menu': menu, 'clients': clients}
     return render(request, 'myapp/clients.html', context=context)
 
 
@@ -98,7 +99,15 @@ def add_driver(request):
 
 
 def add_client(request):
+
     title = 'Добавить клиента'
-    form = ClientForm()
+
+    if request.method == 'POST':
+        form = ClientForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'myapp/clients.html', {'title': title})
+    else:
+        form = ClientForm()
     context = {'title': title, 'menu': menu, 'form': form}
     return render(request, 'myapp/client_add.html', context=context)
