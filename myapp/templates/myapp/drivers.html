@@ -2,6 +2,23 @@
 
 {% block content %}
 <h1>{{title}}</h1>
-Содержимое страницы Водитель
+Водители:
+
+<table id="drivers" border="1">
+    <th>id</th>
+    <th>Имя</th>
+    <th>Возраст</th>
+    <th>Город</th>
+{% for driver in drivers %}
+        <tr>
+            <td align="center">{{driver.id}}</td>
+            <td align="center">{{driver.name}}</td>
+            <td align="center">{{driver.age}}</td>
+            <td align="center">{{driver.city}}</td>
+        </tr>
+{% endfor %}
+
+</table>
+
 <p><a href="{% url 'add_driver' %}">Добавить водителя</a></p>
 {% endblock %}

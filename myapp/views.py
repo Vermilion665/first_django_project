@@ -37,8 +37,16 @@ def cars(request):
 
 def drivers(request):
     title = 'Водители'
-    context = {'title': title, 'menu': menu}
+    clients = Driver.objects.all()
+    context = {'title': title, 'menu': menu, 'drivers': drivers}
     return render(request, 'myapp/drivers.html', context=context)
+
+
+def clients(request):
+    title = 'Клиенты'
+    clients = Client.objects.all()
+    context = {'title': title, 'menu': menu, 'clients': clients}
+    return render(request, 'myapp/clients.html', context=context)
 
 
 @csrf_protect
@@ -64,11 +72,7 @@ def contacts(request, id):
     return HttpResponse(f'Page contacts, url_parametr_id = {url_id}, get_params = {get_params}')
 
 
-def clients(request):
-    title = 'Клиенты'
-    clients = Client.objects.all()
-    context = {'title': title, 'menu': menu, 'clients': clients}
-    return render(request, 'myapp/clients.html', context=context)
+
 
 
 def add_car(request):
@@ -93,7 +97,13 @@ def add_car(request):
 
 def add_driver(request):
     title = 'Добавить водителя'
-    form = DriverForm()
+    if request.method == 'POST':
+        form = DriverForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'myapp/drivers.html', {'title': title})
+    else:
+        form = DriverForm()
     context = {'title': title, 'menu': menu, 'form': form}
     return render(request, 'myapp/driver_add.html', context=context)
 

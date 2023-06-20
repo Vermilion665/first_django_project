@@ -21,10 +21,16 @@ class CarForm(forms.Form):
     year = forms.ChoiceField(label='Год выпуска', choices=year_choices, initial=current_year)
 
 
-class DriverForm(forms.Form):
-    name = forms.CharField(max_length=50, label='Имя водителя')
-    age = forms.IntegerField(label='Возраст', min_value=18, max_value=120)
-    city = forms.CharField(max_length=50, label='Город', required=False)
+
+class DriverForm(ModelForm):
+    class Meta:
+        model = Driver
+        fields = ['name', 'age', 'city']
+
+
+    # name = forms.CharField(max_length=50, label='Имя водителя')
+    # age = forms.IntegerField(label='Возраст', min_value=18, max_value=120)
+    # city = forms.CharField(max_length=50, label='Город', required=False)
 
 
 class ClientForm(ModelForm):
