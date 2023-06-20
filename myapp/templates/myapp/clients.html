@@ -18,7 +18,9 @@ Clients:
 {% for client in clients %}
          <tr>
             <td align="center" >{{client.id}}</td>
-            <td align="center">{{client.name}}</td>
+            <td align="center">
+                <a href="{% url 'client_card' pk=client.id %}">{{client.name}}</a>
+            </td>
             <td align="center">{{client.last_name}}</td>
             <td align="center">{{client.birthday}}</td>
             <td align="center">{{client.age}}</td>

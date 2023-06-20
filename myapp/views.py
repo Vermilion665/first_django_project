@@ -3,7 +3,7 @@ import datetime
 from django.http import HttpResponse
 from .forms import CarForm, DriverForm, ClientForm
 from .models import Car, Client, Driver
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_protect
 # Create your views here.
 
@@ -128,3 +128,12 @@ def add_client(request):
         form = ClientForm()
     context = {'title': title, 'menu': menu, 'form': form}
     return render(request, 'myapp/client_add.html', context=context)
+
+
+def client_card(request, pk):
+    title = 'Client info'
+    # client = Client.objects.get(pk=pk)
+    client = get_object_or_404(Client, pk=pk)
+    context = {'menu': menu, 'title': title, 'client': client}
+
+    return render(request, 'myapp/client_card.html', context=context)

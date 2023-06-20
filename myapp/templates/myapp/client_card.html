@@ -1,0 +1,23 @@
+{% extends 'myapp/base.html' %}
+
+{% block content %}
+<h1>{{title}}</h1>
+Клиент:
+
+<table border="2">
+    <tr>
+        <td>id</td>
+        <td align="center">{{client.id}}</td>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td align="center">{{client.name}}</td>
+    </tr>
+    <tr>
+        <td>Familiya</td>
+        <td align="center">{{client.last_name}}</td>
+    </tr>
+</table>
+
+
+{% endblock %}
