@@ -25,7 +25,7 @@ class CarForm(forms.Form):
 class DriverForm(ModelForm):
     class Meta:
         model = Driver
-        fields = ['name', 'age', 'city']
+        fields = '__all__'
 
 
     # name = forms.CharField(max_length=50, label='Имя водителя')

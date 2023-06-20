@@ -1,3 +1,5 @@
+import datetime
+
 from django.http import HttpResponse
 from .forms import CarForm, DriverForm, ClientForm
 from .models import Car, Client, Driver
@@ -31,13 +33,14 @@ def about(request):
 
 def cars(request):
     title = 'Машины'
-    context = {'title': title, 'menu': menu}
+    cars = Car.objects.all()
+    context = {'title': title, 'menu': menu, 'cars': cars}
     return render(request, 'myapp/cars.html', context=context)
 
 
 def drivers(request):
     title = 'Водители'
-    clients = Driver.objects.all()
+    drivers = Driver.objects.all()
     context = {'title': title, 'menu': menu, 'drivers': drivers}
     return render(request, 'myapp/drivers.html', context=context)
 
@@ -76,8 +79,8 @@ def contacts(request, id):
 
 
 def add_car(request):
+    title = 'Добавить машину'
     if request.method == 'GET':
-        title = 'Добавить машину'
         form = CarForm()
         context = {'title': title, 'menu': menu, 'form': form}
         return render(request, 'myapp/car_add.html', context=context)
@@ -101,7 +104,7 @@ def add_driver(request):
         form = DriverForm(request.POST)
         if form.is_valid():
             form.save()
-            return render(request, 'myapp/drivers.html', {'title': title})
+            return drivers(request)
     else:
         form = DriverForm()
     context = {'title': title, 'menu': menu, 'form': form}
@@ -115,8 +118,12 @@ def add_client(request):
     if request.method == 'POST':
         form = ClientForm(request.POST)
         if form.is_valid():
-            form.save()
-            return render(request, 'myapp/clients.html', {'title': title})
+            instance = form.save(commit=False)
+            age = datetime.date.today().year - form.cleaned_data['birthday'].year
+            instance.age = age
+            instance.save()
+            # form.save()
+            return clients(request)
     else:
         form = ClientForm()
     context = {'title': title, 'menu': menu, 'form': form}
