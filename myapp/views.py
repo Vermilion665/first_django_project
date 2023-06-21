@@ -137,3 +137,17 @@ def client_card(request, pk):
     context = {'menu': menu, 'title': title, 'client': client}
 
     return render(request, 'myapp/client_card.html', context=context)
+
+
+def driver_card(request, pk):
+    title = 'Driver info'
+    driver = get_object_or_404(Driver, pk=pk)
+    context = {'menu': menu, 'title': title, 'driver': driver}
+    return render(request, 'myapp/driver_card.html', context=context)
+
+
+def car_card(request, pk):
+    title = 'Car info'
+    car = get_object_or_404(Car, pk=pk)
+    context = {'menu': menu, 'title': title, 'car': car}
+    return render(request, 'myapp/car_card.html', context=context)

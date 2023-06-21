@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1>{{title}}</h1>
-Clients:
+Клиенты:
 
 
 <table id="clients" border="1">
@@ -21,7 +21,9 @@ Clients:
             <td align="center">
                 <a href="{% url 'client_card' pk=client.id %}">{{client.name}}</a>
             </td>
-            <td align="center">{{client.last_name}}</td>
+            <td align="center">
+                <a href="{% url 'client_card' pk=client.id %}">{{client.last_name}}</a>
+            </td>
             <td align="center">{{client.birthday}}</td>
             <td align="center">{{client.age}}</td>
             <td align="center">{{client.city}}</td>

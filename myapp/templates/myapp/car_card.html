@@ -1,10 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'myapp/base.html' %}
 
-</body>
-</html>
+{% block content %}
+<h1>{{title}}</h1>
+Клиент:
+
+<table border="2">
+    <tr>
+        <td>id</td>
+        <td align="center">{{car.id}}</td>
+    </tr>
+    <tr>
+        <td>Марка</td>
+        <td align="center">{{car.brand}}</td>
+    </tr>
+    <tr>
+        <td>Модель</td>
+        <td align="center">{{car.model}}</td>
+    </tr>
+    <tr>
+        <td>Цвет</td>
+        <td align="center">{{car.color}}</td>
+    </tr>
+    <tr>
+        <td>Мощность</td>
+        <td align="center">{{car.power}}</td>
+    </tr>
+    <tr>
+        <td>Год выпуска</td>
+        <td align="center">{{car.year}}</td>
+    </tr>
+</table>
+
+
+{% endblock %}
