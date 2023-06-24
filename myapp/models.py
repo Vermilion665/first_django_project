@@ -1,4 +1,6 @@
 from django.db import models
+from django.urls import reverse
+
 
 # Create your models here.
 
@@ -26,7 +28,7 @@ class Car(models.Model):
 
     def __str__(self):
         #return f'{self.brand} {self.model}'
-        return ' '.join([str(self.brand), str(self.model)])
+        return ' '.join([self.brand, self.model])
 
     class Meta:
         verbose_name = 'Mashina'
@@ -49,3 +51,26 @@ class Client(models.Model):
     class Meta:
         verbose_name = 'Клиент'
         verbose_name_plural = 'Клиенты'
+
+
+class Employee(models.Model):
+    edu_choises = [('middle', 'среднее'),
+                   ('high', 'высшее'),
+                   ('profesional', 'профессиональное'),
+                   ]
+
+    firstname = models.CharField(max_length=50, verbose_name='Имя')
+    lastname = models.CharField(max_length=50, verbose_name='Фамилия')
+    birthday = models.DateField(verbose_name='Дата рождения')
+    position = models.CharField(max_length=50, verbose_name='Должность')
+    education = models.CharField(max_length=30, choices=edu_choises)
+
+    def __str__(self):
+        return ' '.join([self.firstname, self.lastname])
+
+    def get_absolute_url(self):
+        return reverse('employee_list')
+
+    class Meta:
+        verbose_name = 'Сотрудник'
+        verbose_name_plural = 'Сотрудники'

@@ -1,8 +1,10 @@
 import datetime
 
 from django.http import HttpResponse
+from django.views.generic import ListView, DetailView, CreateView
+
 from .forms import CarForm, DriverForm, ClientForm
-from .models import Car, Client, Driver
+from .models import *
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_protect
 # Create your views here.
@@ -151,3 +153,35 @@ def car_card(request, pk):
     car = get_object_or_404(Car, pk=pk)
     context = {'menu': menu, 'title': title, 'car': car}
     return render(request, 'myapp/car_card.html', context=context)
+
+
+class EmployeeList(ListView):
+    model = Employee
+    # template_name = 'myapp/employee_list.html'
+    context_object_name = 'employees'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Сотрудники'
+        context["count"] = Employee.objects.count()
+        context['menu'] = menu
+        return context
+
+
+class EmployeeDetail(DetailView):
+    model = Employee
+    # template_name = 'myapp/employee_detail.html'
+    context_object_name = 'employee'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Информация о сотруднике'
+        context['menu'] = menu
+        return context
+
+
+
+class EmployeeCreate(CreateView):
+    model = Employee
+    fields = '__all__'
+    template_name = 'myapp/employee_form.html'
+

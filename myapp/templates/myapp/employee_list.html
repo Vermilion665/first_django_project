@@ -1,0 +1,33 @@
+{% extends 'myapp/base.html' %}
+
+{% block content %}
+<h1>{{title}}</h1>
+Содержимое страницы сотрудники:
+
+
+<table id="employees" border="1">
+    <th>id</th>
+    <th>Имя</th>
+    <th>Фамилия</th>
+    <th>Дата рождения</th>
+    <th>Должность</th>
+    <th>Образование</th>
+{% for emp in employees %}
+         <tr>
+            <td align="center" >{{emp.id}}</td>
+            <td align="center">
+                <a href="{% url 'employee-detail' pk=emp.id %}">{{emp.firstname}}</a>
+            </td>
+            <td align="center">{{emp.lastname}}</td>
+            <td align="center">{{emp.birthday}}</td>
+            <td align="center">{{emp.position}}</td>
+            <td align="center">{{emp.education}}</td>
+         </tr>
+{% endfor %}
+
+</table>
+Количество - {{count}}
+{% comment %}
+<p><a href="{% url 'employee_create' %}">Добавить сотрудника</a></p>
+{% endcomment %}
+{% endblock %}
