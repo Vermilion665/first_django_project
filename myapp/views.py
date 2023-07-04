@@ -1,7 +1,8 @@
 import datetime
 
 from django.http import HttpResponse
-from django.views.generic import ListView, DetailView, CreateView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from .forms import CarForm, DriverForm, ClientForm
 from .models import *
@@ -14,7 +15,7 @@ menu = [
     {'title': "Машины парка", 'url_name': 'cars'},
     {'title': "Водители парка", 'url_name': 'drivers'},
     {'title': "Клиенты", 'url_name': 'clients'},
-    {'title': "Сотрудники", 'url_name': 'employees'},
+    {'title': "Сотрудники", 'url_name': 'employee_list'},
 ]
 
 
@@ -55,12 +56,6 @@ def clients(request):
     return render(request, 'myapp/clients.html', context=context)
 
 
-# def employees(request):
-#     title = 'Сотрудники'
-#     employees = EmployeeList()
-#     context = {'title': title, 'menu': menu, 'employees': employees}
-#     return render(request, 'myapp/employee_list.html', context=context)
-
 @csrf_protect
 def login(request):
     title = 'Войти'
@@ -82,9 +77,6 @@ def contacts(request, id):
     # return HttpResponse(f'Page_contacts, id = {id}')
     get_params = {'mane': name, "age": age}
     return HttpResponse(f'Page contacts, url_parametr_id = {url_id}, get_params = {get_params}')
-
-
-
 
 
 def add_car(request):
@@ -164,8 +156,10 @@ def car_card(request, pk):
 
 class EmployeeList(ListView):
     model = Employee
-    # template_name = 'myapp/employee_list.html'
+    template_name = 'myapp/employee_list.html'
     context_object_name = 'employees'
+    paginate_by = 3
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Сотрудники'
@@ -186,9 +180,21 @@ class EmployeeDetail(DetailView):
         return context
 
 
-
 class EmployeeCreate(CreateView):
     model = Employee
     fields = '__all__'
     template_name = 'myapp/employee_form.html'
+
+
+class EmployeeUpdate(UpdateView):
+    model = Employee
+    fields = '__all__'
+    template_name = 'myapp/employee_update.html'
+
+
+class EmployeeDelete(DeleteView):
+    model = Employee
+    template_name = 'myapp/delete.html'
+    success_url = reverse_lazy('employee_list')
+
 
