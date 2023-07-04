@@ -13,7 +13,8 @@ menu = [
     {'title': "О сайте", 'url_name': 'about'},
     {'title': "Машины парка", 'url_name': 'cars'},
     {'title': "Водители парка", 'url_name': 'drivers'},
-    {'title': "Клиенты", 'url_name': 'clients'}
+    {'title': "Клиенты", 'url_name': 'clients'},
+    {'title': "Сотрудники", 'url_name': 'employees'},
 ]
 
 
@@ -53,6 +54,12 @@ def clients(request):
     context = {'title': title, 'menu': menu, 'clients': clients}
     return render(request, 'myapp/clients.html', context=context)
 
+
+# def employees(request):
+#     title = 'Сотрудники'
+#     employees = EmployeeList()
+#     context = {'title': title, 'menu': menu, 'employees': employees}
+#     return render(request, 'myapp/employee_list.html', context=context)
 
 @csrf_protect
 def login(request):
