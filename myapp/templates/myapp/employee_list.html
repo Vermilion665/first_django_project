@@ -16,7 +16,7 @@
          <tr>
             <td align="center" >{{emp.id}}</td>
             <td align="center">
-                <a href="{% url 'employee-detail' pk=emp.id %}">{{emp.firstname}}</a>
+                <a href="{% url 'myapp:employee-detail' pk=emp.id %}">{{emp.firstname}}</a>
             </td>
             <td align="center">{{emp.lastname}}</td>
             <td align="center">{{emp.birthday}}</td>
@@ -27,7 +27,7 @@
 
 </table>
 Количество - {{count}}
-<p><a href="{% url 'employee-create' %}">Добавить сотрудника</a></p>
+<p><a href="{% url 'myapp:employee-create' %}">Добавить сотрудника</a></p>
 
 {% if page_obj.has_previous %}
         <a href="?page=1">&laquo; First</a>

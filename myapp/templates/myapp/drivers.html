@@ -13,7 +13,7 @@
         <tr>
             <td align="center">{{driver.id}}</td>
             <td align="center">
-                <a href="{% url 'driver_card' pk=driver.id %}">{{driver.name}}</a>
+                <a href="{% url 'myapp:driver_card' pk=driver.id %}">{{driver.name}}</a>
             </td>
             <td align="center">{{driver.age}}</td>
             <td align="center">{{driver.city}}</td>
@@ -22,5 +22,5 @@
 
 </table>
 
-<p><a href="{% url 'add_driver' %}">Добавить водителя</a></p>
+<p><a href="{% url 'myapp:add_driver' %}">Добавить водителя</a></p>
 {% endblock %}

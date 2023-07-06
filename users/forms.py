@@ -7,17 +7,23 @@ class UserRegistrationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = {'username', 'first_name', 'email'}
+        fields = ('username', 'first_name', 'email')
         help_texts = {
             'username': 'Only strings, numbers and @/,/+/-/_',
         }
 
-        verbose_name = {
-            'username': 'login'
+        error_messages = {
+            'username': {
+                'required': 'Это поле обязательно для заполнения',
+            },
+
+            'password': {
+                'required': 'Это поле обязательно для заполнения',
+            },
         }
 
     def clean_password2(self):
         cd = self.cleaned_data
         if cd['password'] != cd['password2']:
             raise forms.ValidationError('Passwords ne sovpadaut!!!')
-        return cd('password2')
+        return cd['password2']

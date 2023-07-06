@@ -27,24 +27,25 @@ def register(request):
 # user = User.objects.create_user("john", "lennon@thebeatles.com", "johnpassword")
 
 
-# def log_in(request):
-#     form = AuthenticationForm(request, data=request.POST or None)
-#
-#     if form.is_valid():
-#         username = form.cleaned_data['username']
-#         password = form.cleaned_data['password']
-#         user = authenticate(username=username, password=password)
-#
-#         if user is not None:
-#             login(request, user)
-#             # url = reverse('main:index')
-#             url = request.GET.get('next', LOGIN_REDIRECT_URL)
-#             return redirect(url)
-#
-#     return render(request, 'users/login.html', {'form': form, 'menu': menu})
-#
-#
-# def log_out(request):
-#     logout(request)
-#     url = reverse('main:index')
-#     return redirect(url)
+def log_in(request):
+    form = AuthenticationForm(request, data=request.POST or None)
+
+    if form.is_valid():
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            # url = reverse('main:index')
+            url = request.GET.get('next', LOGIN_REDIRECT_URL)
+            print(url)
+            return redirect(url)
+
+    return render(request, 'users/login.html', {'form': form, 'menu': menu})
+
+
+def log_out(request):
+    logout(request)
+    url = reverse('myapp:index')
+    return redirect(url)

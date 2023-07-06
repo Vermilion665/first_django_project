@@ -19,10 +19,31 @@ class Driver(models.Model):
         verbose_name_plural = 'Ludi'
 
 
+class CarBrand(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+    class Mate:
+        verbose_name = 'Brand'
+        verbose_name_plural = 'Brands'
+
+
 class Car(models.Model):
-    brand = models.CharField(max_length=30, verbose_name='Марка')
+
+    colors = (
+        ('черный', 'черный'),
+        ('желтый', 'желтый'),
+        ('белый', 'белый'),
+        ('синий', 'синий'),
+        ('зеленый', 'зеленый'),
+        ('красный', 'красный'),
+    )
+
+    brand = models.ForeignKey(CarBrand, on_delete=models.CASCADE, related_name='cars', verbose_name='Марка')
     model = models.CharField(max_length=30, verbose_name='Модель')
-    color = models.CharField(max_length=30, verbose_name='Цвет')
+    color = models.CharField(max_length=30, choices=colors, verbose_name='Цвет')
     power = models.IntegerField(verbose_name="Мощность'")
     year = models.IntegerField(verbose_name='Год выпуска')
 
@@ -74,3 +95,5 @@ class Employee(models.Model):
     class Meta:
         verbose_name = 'Сотрудник'
         verbose_name_plural = 'Сотрудники'
+
+

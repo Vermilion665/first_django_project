@@ -16,10 +16,10 @@
          <tr>
             <td align="center" >{{car.id}}</td>
             <td align="center">
-                <a href="{% url 'car_card' pk=car.id %}">{{car.brand}}</a>
+                <a href="{% url 'myapp:car_card' pk=car.id %}">{{car.brand}}</a>
             </td>
             <td align="center">
-                <a href="{% url 'car_card' pk=car.id %}">{{car.model}}</a>
+                <a href="{% url 'myapp:car_card' pk=car.id %}">{{car.model}}</a>
             </td>
             <td align="center">{{car.color}}</td>
             <td align="center">{{car.power}}</td>
@@ -29,5 +29,7 @@
 
 </table>
 
-<p><a href="{% url 'add_car' %}">Добавить машину</a></p>
+{% if user.is_staff %}
+<p><a href="{% url 'myapp:add_car' %}">Добавить машину</a></p>
+{% endif %}
 {% endblock %}

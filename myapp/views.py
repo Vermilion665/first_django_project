@@ -7,6 +7,8 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .forms import CarForm, DriverForm, ClientForm
 from .models import *
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.views.decorators.csrf import csrf_protect
 # Create your views here.
 
@@ -35,6 +37,7 @@ def about(request):
     return render(request, 'myapp/about.html', context=context)
 
 
+@login_required
 def cars(request):
     title = 'Машины'
     cars = Car.objects.all()
@@ -49,6 +52,7 @@ def drivers(request):
     return render(request, 'myapp/drivers.html', context=context)
 
 
+@staff_member_required
 def clients(request):
     title = 'Клиенты'
     clients = Client.objects.all()
