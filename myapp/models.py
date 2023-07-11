@@ -46,10 +46,11 @@ class Car(models.Model):
     color = models.CharField(max_length=30, choices=colors, verbose_name='Цвет')
     power = models.IntegerField(verbose_name="Мощность'")
     year = models.IntegerField(verbose_name='Год выпуска')
+    image = models.ImageField(upload_to='cars/', blank=True, null=True)
 
     def __str__(self):
         #return f'{self.brand} {self.model}'
-        return ' '.join([self.brand, self.model])
+        return ' '.join([str(self.brand), str(self.model)])
 
     class Meta:
         verbose_name = 'Mashina'
@@ -77,7 +78,7 @@ class Client(models.Model):
 class Employee(models.Model):
     edu_choises = [('middle', 'среднее'),
                    ('high', 'высшее'),
-                   ('profesional', 'профессиональное'),
+                   ('professional', 'профессиональное'),
                    ]
 
     firstname = models.CharField(max_length=50, verbose_name='Имя')
@@ -90,10 +91,26 @@ class Employee(models.Model):
         return ' '.join([self.firstname, self.lastname])
 
     def get_absolute_url(self):
-        return reverse('employee_list')
+        return reverse('myapp:employee_list')
 
     class Meta:
         verbose_name = 'Сотрудник'
         verbose_name_plural = 'Сотрудники'
 
+
+class Order(models.Model):
+    car = models.ForeignKey(Car, on_delete=models.DO_NOTHING, related_name='car', verbose_name='машина')
+    driver = models.ForeignKey(Driver, on_delete=models.DO_NOTHING, related_name='driver', verbose_name='водитель')
+    client = models.ForeignKey(Client, on_delete=models.DO_NOTHING, related_name='car', verbose_name='Клиент')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return ' '.join([str(self.id), str(self.client)])
+
+    def get_absolute_url(self):
+        return reverse('myapp:order_list')
+
+    class Meta:
+        verbose_name = 'заказ'
+        verbose_name_plural = 'заказы'
 

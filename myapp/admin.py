@@ -7,4 +7,5 @@ admin.site.register(Car)
 admin.site.register(Client)
 admin.site.register(Employee)
 admin.site.register(CarBrand)
+admin.site.register(Order)
 

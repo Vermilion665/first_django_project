@@ -19,6 +19,8 @@ from django.urls import path, include
 from myapp import urls as myapp_urls
 from users import urls as users_urls
 from myapp.views import index_main, login
+from my_project import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', index_main),
@@ -28,3 +30,6 @@ urlpatterns = [
     path('users/', include(users_urls)),
 
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -43,3 +43,9 @@ class ClientForm(ModelForm):
         exclude = ['age']
 
     birthday = forms.DateField(input_formats=DATE_INPUT_FORMATS, label='Дата рождения')
+
+
+class OrderForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = '__all__'

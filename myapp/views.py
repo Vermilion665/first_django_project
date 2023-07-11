@@ -18,6 +18,7 @@ menu = [
     {'title': "Водители парка", 'url_name': 'myapp:drivers'},
     {'title': "Клиенты", 'url_name': 'myapp:clients'},
     {'title': "Сотрудники", 'url_name': 'myapp:employee_list'},
+    {'title': "Заказы", 'url_name': 'myapp:order_list'},
 ]
 
 
@@ -91,7 +92,7 @@ def add_car(request):
         return render(request, 'myapp/car_add.html', context=context)
 
     if request.method == 'POST':
-        carform = CarForm(request.POST)
+        carform = CarForm(request.POST, request.FILES)
         if carform.is_valid():
             car = Car()
             car.brand = carform.cleaned_data['brand']
@@ -99,6 +100,7 @@ def add_car(request):
             car.color = carform.cleaned_data['color']
             car.power = carform.cleaned_data['power']
             car.year = carform.cleaned_data['year']
+            car.image = carform.cleaned_data['image']
             car.save()
         return cars(request)
 
@@ -202,3 +204,13 @@ class EmployeeDelete(DeleteView):
     success_url = reverse_lazy('employee_list')
 
 
+class OrderCreate(CreateView):
+    model = Order
+    fields = '__all__'
+    template_name = 'myapp/order_form.html'
+
+
+class OrderList(ListView):
+    model = Order
+    template_name = 'myapp/order_list.html'
+    context_object_name = 'objects'
