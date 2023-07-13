@@ -42,10 +42,17 @@ class ClientForm(ModelForm):
         model = Client
         exclude = ['age']
 
-    birthday = forms.DateField(input_formats=DATE_INPUT_FORMATS, label='Дата рождения')
+    birthday = forms.DateField(input_formats=DATE_INPUT_FORMATS, label='Дата рождения', widget=forms.DateInput(attrs={'type': 'date'}))
 
 
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
+        fields = '__all__'
+
+
+class EmpoyeeForm(forms.ModelForm):
+    birthday = forms.DateField(input_formats=DATE_INPUT_FORMATS, label='Дата рождения', widget=forms.DateInput(attrs={'type': 'date'}))
+    class Meta:
+        model = Employee
         fields = '__all__'

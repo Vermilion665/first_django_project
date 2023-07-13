@@ -15,9 +15,9 @@
     {% for order in objects %}
          <tr>
             <td align="center">{{order.id}}</td>
-            <td align="center">{{order.client}}</td>
-            <td align="center">{{order.car}}</td>
-            <td align="center">{{order.driver}}</td>
+             <td align="center"><a href="{% url 'myapp:client_card' pk=order.client.id %}">{{order.client}}</a></td>
+             <td align="center"><a href="{% url 'myapp:car_card' pk=order.car.id %}">{{order.car}}</a></td>
+             <td align="center"><a href="{% url 'myapp:driver_card' pk=order.driver.id %}">{{order.driver}}</a>></td>
             <td align="center">{{order.created_at}}</td>
          </tr>
     {% endfor %}

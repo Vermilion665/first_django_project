@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'myapp',
     'users',
+    'sorl.thumbnail',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

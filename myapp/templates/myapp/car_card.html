@@ -1,11 +1,17 @@
 {% extends 'myapp/base.html' %}
+{% load thumbnail %}
 
 {% block content %}
 <h1>{{title}}</h1>
 {% if car.image %}
-<img src="{{ car.image.url }}">
+<a href="{{car.image.url}}" target="_blank">
+    {% thumbnail car.image "300x150" crop="center" as im %}
+<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+</a>
+{% endthumbnail %}
 {% endif %}
-Tachki:
+
+<h4>Tachki:</h4>
 
 <table border="2">
     <tr>

@@ -2,8 +2,21 @@
 
 {% block content %}
 <h1>{{title}}</h1>
-Машины:
 
+<form method="get">
+    {{ filter.form.as_p }}
+    <input type="submit" value="Search"/>
+</form>
+
+<p></p>
+
+<form action="{% url 'myapp:car_search' %}" method="get">
+    <input type="search" name="query">
+    <button type="submit">Поиск</button>
+</form>
+
+
+Машины:
 
 <table id="cars" border="1">
     <th>id</th>
@@ -12,7 +25,7 @@
     <th>Цвет</th>
     <th>Мощность</th>
     <th>Год выпуска</th>
-{% for car in cars %}
+{% for car in filter.qs %}
          <tr>
             <td align="center" >{{car.id}}</td>
             <td align="center">

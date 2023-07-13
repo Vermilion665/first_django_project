@@ -1,15 +1,18 @@
 import datetime
 
+from django.db.models import Q
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from .forms import CarForm, DriverForm, ClientForm
+from .filters import CarFilter
+from .forms import *
 from .models import *
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.views.decorators.csrf import csrf_protect
+
 # Create your views here.
 
 menu = [
@@ -39,10 +42,13 @@ def about(request):
 
 
 @login_required
-def cars(request):
+def cars(request, cars=None):
     title = 'Машины'
-    cars = Car.objects.all()
-    context = {'title': title, 'menu': menu, 'cars': cars}
+    f = CarFilter(request.GET, queryset=Car.objects.all())
+    if not request.GET.get('query'):
+        cars = Car.objects.all()
+
+    context = {'title': title, 'menu': menu, 'cars': cars, 'filter': f}
     return render(request, 'myapp/cars.html', context=context)
 
 
@@ -119,7 +125,6 @@ def add_driver(request):
 
 
 def add_client(request):
-
     title = 'Добавить клиента'
 
     if request.method == 'POST':
@@ -160,6 +165,15 @@ def car_card(request, pk):
     return render(request, 'myapp/car_card.html', context=context)
 
 
+def car_search(request):
+    if request.method == "GET":
+        query = request.GET.get('query')
+        ft = Q(model__icontains=query) | Q(year__icontains=query) | Q(brand__name__icontains=query)
+        # ft = Q(model__icontains=query)
+        results = Car.objects.filter(ft)
+        return cars(request, cars=results)
+
+
 class EmployeeList(ListView):
     model = Employee
     template_name = 'myapp/employee_list.html'
@@ -188,7 +202,8 @@ class EmployeeDetail(DetailView):
 
 class EmployeeCreate(CreateView):
     model = Employee
-    fields = '__all__'
+    # fields = '__all__'
+    form_class = EmpoyeeForm
     template_name = 'myapp/employee_form.html'
 
 

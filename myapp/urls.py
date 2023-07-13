@@ -20,6 +20,7 @@ urlpatterns = [
     path('clients/', clients, name='clients'),
 
     path('add_car/', add_car, name='add_car'),
+    path('cars/search/', car_search, name='car_search'),
     path('add_driver/', add_driver, name='add_driver'),
     path('add_client/', add_client, name='add_client'),
 
