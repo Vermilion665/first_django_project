@@ -19,7 +19,7 @@
          <tr>
             <td align="center" >{{client.id}}</td>
             <td align="center">
-                <a href="{% url 'myapp:client_card' pk=client.id %}">{{client.name}}</a>
+                <a href="{% url 'myapp:client_card' pk=client.id %}">{{client.first_name}}</a>
             </td>
             <td align="center">
                 <a href="{% url 'myapp:client_card' pk=client.id %}">{{client.last_name}}</a>

@@ -7,16 +7,24 @@
 <table id="drivers" border="1">
     <th>id</th>
     <th>Имя</th>
+    <th>Фамилия</th>
+    <th>Дата рождения</th>
     <th>Возраст</th>
     <th>Город</th>
+    <th>E-mail</th>
 {% for driver in drivers %}
         <tr>
             <td align="center">{{driver.id}}</td>
             <td align="center">
-                <a href="{% url 'myapp:driver_card' pk=driver.id %}">{{driver.name}}</a>
+                <a href="{% url 'myapp:driver_card' pk=driver.id %}">{{driver.first_name}}</a>
             </td>
+            <td align="center">
+                <a href="{% url 'myapp:driver_card' pk=driver.id %}">{{driver.last_name}}</a>
+            </td>
+            <td align="center">{{driver.birthday}}</td>
             <td align="center">{{driver.age}}</td>
             <td align="center">{{driver.city}}</td>
+            <td align="center">{{driver.email}}</td>
         </tr>
 {% endfor %}
 

@@ -27,9 +27,16 @@ class CarForm(forms.ModelForm):
 
 
 class DriverForm(ModelForm):
+    birthday = forms.DateField(
+        input_formats=DATE_INPUT_FORMATS,
+        label='Дата рождения',
+        initial=datetime.date.today,
+        widget=forms.DateInput(attrs={'type': 'date'}))\
+
+
     class Meta:
         model = Driver
-        fields = '__all__'
+        exclude = ['age', 'is_activated']
 
 
     # name = forms.CharField(max_length=50, label='Имя водителя')
@@ -37,12 +44,18 @@ class DriverForm(ModelForm):
     # city = forms.CharField(max_length=50, label='Город', required=False)
 
 
-class ClientForm(ModelForm):
+class ClientForm(forms.ModelForm):
     class Meta:
         model = Client
-        exclude = ['age']
+        exclude = ['age', 'created_at']
 
-    birthday = forms.DateField(input_formats=DATE_INPUT_FORMATS, label='Дата рождения', widget=forms.DateInput(attrs={'type': 'date'}))
+    birthday = forms.DateField(
+        input_formats=DATE_INPUT_FORMATS,
+        label='Дата рождения',
+        initial=datetime.date.today,
+        widget=forms.DateInput(attrs={'type': 'date'}))
+
+
 
 
 class OrderForm(forms.ModelForm):
@@ -51,7 +64,7 @@ class OrderForm(forms.ModelForm):
         fields = '__all__'
 
 
-class EmpoyeeForm(forms.ModelForm):
+class EmployeeForm(forms.ModelForm):
     birthday = forms.DateField(input_formats=DATE_INPUT_FORMATS, label='Дата рождения', widget=forms.DateInput(attrs={'type': 'date'}))
     class Meta:
         model = Employee

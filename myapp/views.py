@@ -116,6 +116,9 @@ def add_driver(request):
     if request.method == 'POST':
         form = DriverForm(request.POST)
         if form.is_valid():
+            instance = form.save(commit=False)
+            age = datetime.date.today().year - form.cleaned_data['birthday'].year
+            instance.age = age
             form.save()
             return drivers(request)
     else:
@@ -143,7 +146,7 @@ def add_client(request):
 
 
 def client_card(request, pk):
-    title = 'Client info'
+    title = 'Информация о клиенте'
     # client = Client.objects.get(pk=pk)
     client = get_object_or_404(Client, pk=pk)
     context = {'menu': menu, 'title': title, 'client': client}
@@ -152,14 +155,14 @@ def client_card(request, pk):
 
 
 def driver_card(request, pk):
-    title = 'Driver info'
+    title = 'Информация о водителе'
     driver = get_object_or_404(Driver, pk=pk)
     context = {'menu': menu, 'title': title, 'driver': driver}
     return render(request, 'myapp/driver_card.html', context=context)
 
 
 def car_card(request, pk):
-    title = 'Car info'
+    title = 'Информация о машине'
     car = get_object_or_404(Car, pk=pk)
     context = {'menu': menu, 'title': title, 'car': car}
     return render(request, 'myapp/car_card.html', context=context)
@@ -203,7 +206,7 @@ class EmployeeDetail(DetailView):
 class EmployeeCreate(CreateView):
     model = Employee
     # fields = '__all__'
-    form_class = EmpoyeeForm
+    form_class = EmployeeForm
     template_name = 'myapp/employee_form.html'
 
 

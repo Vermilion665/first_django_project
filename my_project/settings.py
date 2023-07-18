@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'users',
     'sorl.thumbnail',
     'django_filters',
+    'phone_field'
 ]
 
 MIDDLEWARE = [
