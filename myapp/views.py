@@ -26,7 +26,7 @@ menu = [
 
 
 def index_main(request):
-    return HttpResponse('<h1>Main page</h1>')  # Всегда веб-страничка долна возвращаться (результат ответа на запрос
+    return HttpResponse('<h1>Заглавная страница</h1>')  # Всегда веб-страничка долна возвращаться (результат ответа на запрос
 
 
 def index_myapp(request):
@@ -232,3 +232,10 @@ class OrderList(ListView):
     model = Order
     template_name = 'myapp/order_list.html'
     context_object_name = 'objects'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Заказы'
+        context["count"] = Order.objects.count()
+        context['menu'] = menu
+        return context

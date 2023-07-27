@@ -54,9 +54,9 @@ class Car(models.Model):
     brand = models.ForeignKey(CarBrand, on_delete=models.CASCADE, related_name='cars', verbose_name='Марка')
     model = models.CharField(max_length=30, verbose_name='Модель')
     color = models.CharField(max_length=30, choices=colors, verbose_name='Цвет')
-    power = models.IntegerField(verbose_name="Мощность'")
+    power = models.IntegerField(verbose_name="Мощность")
     year = models.IntegerField(verbose_name='Год выпуска')
-    image = models.ImageField(upload_to='cars/', blank=True, null=True)
+    image = models.ImageField(upload_to='cars/', blank=True, null=True, verbose_name='Картинка')
 
     def __str__(self):
         #return f'{self.brand} {self.model}'
@@ -74,7 +74,7 @@ class Client(models.Model):
     birthday = models.DateField(verbose_name='Дата рождения', default=date.today)
     age = models.IntegerField(verbose_name='Возраст', null=True)
     city = models.CharField(max_length=50, verbose_name='Город')
-    phone = PhoneField(blank=True, help_text='Vash nomer telefona', verbose_name='Телефон', unique=True)
+    phone = PhoneField(blank=True, help_text='Ваш добавочный', verbose_name='Телефон', unique=True)
     email = models.EmailField(verbose_name='Эл. почта', unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -91,16 +91,16 @@ class Client(models.Model):
 
 
 class Employee(models.Model):
-    edu_choises = [('middle', 'среднее'),
-                   ('high', 'высшее'),
-                   ('professional', 'профессиональное'),
+    edu_choises = [('middle', 'Среднее'),
+                   ('high', 'Высшее'),
+                   ('professional', 'Профессиональное'),
                    ]
 
     firstname = models.CharField(max_length=50, verbose_name='Имя')
     lastname = models.CharField(max_length=50, verbose_name='Фамилия')
     birthday = models.DateField(verbose_name='Дата рождения')
     position = models.CharField(max_length=50, verbose_name='Должность')
-    education = models.CharField(max_length=30, choices=edu_choises)
+    education = models.CharField(max_length=30, choices=edu_choises, verbose_name='Образование')
 
     def __str__(self):
         return ' '.join([self.firstname, self.lastname])
